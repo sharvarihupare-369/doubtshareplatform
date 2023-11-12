@@ -13,7 +13,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import signupquesimg from "../Assets/loginvector.jpg";
 import { signup } from "../redux/authentication/action";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -26,18 +26,19 @@ const Signup = () => {
     username: "",
     email: "",
     password: "",
-    role: "Student",
+    role: "",
   });
 
-  const handleChange = (e) => {
-    const { value, name, checked } = e.target;
-    // console.log("value" + value)
-    // console.log("name"+ name)
-    // console.log("checked"+ checked)
-    // console.log(e)
+  // const handleChange = (e) => {
+  //   const { value, name, checked } = e.target;
+  //   // console.log("value" + value)
+  //   // console.log("name"+ name)
+  //   // console.log("checked"+ checked)
+  //   // console.log(e)
+  //   setSignupdata({ ...signupdata, [name]: value});
+  // };
 
-    setSignupdata({ ...signupdata, [name]: value });
-  };
+  console.log(signupdata)
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -97,7 +98,7 @@ const Signup = () => {
         justifyContent={"flex-end"}
       >
         <Box
-          w="80%"
+          w="90%"
           h="90vh"
           bg="#37CF89"
           display={"flex"}
@@ -106,7 +107,7 @@ const Signup = () => {
           borderTopLeftRadius={"20px"}
           borderBottomLeftRadius={"20px"}
         >
-          <Box w="100%" position={"relative"} bottom="20px" left="20px">
+          <Box w="100%" >
             <Image
               src={signupquesimg}
               borderRadius={"10px"}
@@ -141,7 +142,8 @@ const Signup = () => {
                 <Input
                   type="text"
                   name="username"
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(e)=>setSignupdata({...signupdata,username:e.target.value})}
                   value={signupdata.username}
                   placeholder="Enter name"
                   _placeholder={{ opacity: 0.9, color: "gray.900" }}
@@ -155,7 +157,8 @@ const Signup = () => {
                 <Input
                   type="email"
                   name="email"
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(e)=>setSignupdata({...signupdata,email:e.target.value})}
                   value={signupdata.email}
                   placeholder="Enter email"
                   _placeholder={{ opacity: 0.9, color: "gray.900" }}
@@ -169,7 +172,8 @@ const Signup = () => {
                 <Input
                   type="password"
                   name="password"
-                  onChange={handleChange}
+                  // onChange={handleChange}
+                  onChange={(e)=>setSignupdata({...signupdata,password:e.target.value})}
                   value={signupdata.password}
                   placeholder="Enter password"
                   _placeholder={{ opacity: 0.9, color: "gray.900" }}
@@ -185,16 +189,20 @@ const Signup = () => {
                   colorScheme="green"
                   color="white"
                   fontWeight={600}
-                  defaultChecked
-                  value={signupdata.role}
+                 
+                  onChange={()=>setSignupdata({...signupdata,role:"Student"})}
+                  // isChecked={signupdata.role === 'Student'}
                 >
                   Student
                 </Checkbox>
+
                 <Checkbox
                   color="white"
                   fontWeight={600}
                   colorScheme="green"
-                  value={signupdata.role}
+                  // value={signupdata.role}
+                  onChange={()=>setSignupdata({...signupdata,role:"Tutor"})}
+                  // isChecked={signupdata.role === 'Tutor'}
                 >
                   Tutor
                 </Checkbox>
@@ -204,12 +212,17 @@ const Signup = () => {
                 <Button
                   type="submit"
                   w="100%"
-                  variant={"solid"}
+                  variant="none"
+                  
                   bg="#364FC2"
                   color="white"
                 >
                   Signup
                 </Button>
+              </Box>
+              <Box color="white" display={"flex"} gap="10px">
+                <p>Already Registered?</p>
+                <Link to="/login">Login Now</Link>
               </Box>
             </Box>
           </form>

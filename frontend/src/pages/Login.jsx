@@ -12,12 +12,13 @@ import React, { useEffect, useState } from "react";
 import signupquesimg from "../Assets/loginvector.jpg";
 import { login } from "../redux/authentication/action";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Login = () => {
 
   const dispatch = useDispatch();
-  const { loggedinname,isAuth,token,errmsg } = useSelector(
+  const { loggedinname,isAuth,token,errmsg ,isLoading} = useSelector(
     (store) => store.authReducer
   );
   const toast = useToast();
@@ -42,6 +43,7 @@ const Login = () => {
     
     if(token){
       localStorage.setItem("doubt-token",token);
+      localStorage.setItem("login-name",loggedinname)
       toast({
         title: `${loggedinname} logged in successfully`,
         // description: registermsg,
@@ -70,6 +72,11 @@ const Login = () => {
   },[token,errmsg])
 
 
+  // if(isLoading){
+  //   return <Loader/>
+  // }
+
+
 
   return (
     <Box
@@ -96,7 +103,7 @@ const Login = () => {
         justifyContent={"flex-end"}
       >
          <Box
-          w="80%"
+          w="90%"
           h="90vh"
           bg="#37CF89"
           display={"flex"}
@@ -105,7 +112,7 @@ const Login = () => {
           borderTopLeftRadius={"20px"}
           borderBottomLeftRadius={"20px"}
         >
-          <Box w="100%" position={"relative"} bottom="20px" left="20px">
+          <Box w="100%" >
             <Image
               src={signupquesimg}
               borderRadius={"10px"}
@@ -168,12 +175,17 @@ const Login = () => {
                 <Button
                   type="submit"
                   w="100%"
-                  variant={"solid"}
+                  variant="none"
                   bg="#364FC2"
                   color="white"
                 >
                   Login
                 </Button>
+              </Box>
+
+              <Box color="white" display={"flex"} gap="10px">
+                <p>Not Registered yet ?</p>
+                <Link to="/login">Signup</Link>
               </Box>
             </Box>
           </form>

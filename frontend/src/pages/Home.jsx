@@ -1,8 +1,12 @@
+import { Box, Button } from '@chakra-ui/react'
 import React from 'react'
+import Dashboard from './Dashboard'
 
 const Home = () => {
   return (
-    <div>Home</div>
+    <Box>
+        <Dashboard/>
+    </Box>
   )
 }
 
