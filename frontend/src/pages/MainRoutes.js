@@ -6,6 +6,7 @@ import Signup from "./Signup";
 import Dashboard from "./Dashboard";
 import DoubtForm from "../components/DoubtForm";
 import ChatInterface from "./ChatInterface";
+import Profile from "../components/Profile";
 
 const MainRoutes = () => {
   return (
@@ -16,6 +17,7 @@ const MainRoutes = () => {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/doubtform" element={<DoubtForm />} />
       <Route path="/chat" element={<ChatInterface />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   );
 };
