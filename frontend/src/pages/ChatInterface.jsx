@@ -1,19 +1,40 @@
-import { Avatar, Box, Heading, Input ,Text} from '@chakra-ui/react'
-import React from 'react'
+import { Avatar, Box, HStack, Heading, Input ,List,Text} from '@chakra-ui/react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllDoubts } from '../redux/doubts/action'
 
 const ChatInterface = () => {
+  const token = localStorage.getItem("doubt-token");
+  const username = localStorage.getItem("login-name");
+  const dispatch = useDispatch();
+  const {alldoubts} = useSelector((store)=>store.doubtReducer);
+  
+
+  useEffect(()=>{
+    dispatch(getAllDoubts(token))
+  },[])
+
+
   return (
     <Box display={"flex"}>
         <Box h="90vh"  w="20%"  bg="#abbaab">
-            <Box p="10px"  boxShadow = "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px" display={"flex"} alignItems={"center"} gap="20px">
-              <Box>
-                <Avatar name='Kola Tioluwani' size="md" src='https://bit.ly/tioluwani-kolawole' />
-              </Box>
-              <Box>
-                <Heading as="h4" size="sm">Name</Heading>
-                <Text>zdasdasd...</Text>
-              </Box>
-            </Box>
+            {/* <Box    display={"flex"} alignItems={"center"} gap="20px"> */}
+
+               <Box>
+
+                {
+                 alldoubts.map((doubt)=>{
+                  return  <Box p="10px" key={doubt?._id } boxShadow = "rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px">
+                      <HStack gap="10px" mt="10px">
+                      <Avatar name={username} size="md" src='https://bit.ly/tioluwani-kolawole' />
+                     <Text>{doubt.question}</Text>
+                      </HStack>
+                    </Box>
+ 
+                  })
+                }
+               </Box>
+            {/* </Box> */}
         </Box>
 
         <Box w="70%">

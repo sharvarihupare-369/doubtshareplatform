@@ -31,7 +31,7 @@ const Profile = () => {
   const { student } = useSelector((store) => store.detailsReducer);
   const [classGrade, setClassGrade] = useState("");
   const [language, setLanguage] = useState("");
-  console.log(student);
+//   console.log(student);
 
   const handleAddDetails = (e) => {
     e.preventDefault();
