@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST } from "./actionTypes"
+import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST } from "./actionTypes"
 import { baseUrl } from "../../url";
 
 export const studentDetails = (detailsObj,token) => (dispatch) => {
@@ -32,3 +32,18 @@ export const getStudentDetail = (token) => (dispatch) => {
     })
  }
 
+
+ export const getalltutors = (token) => (dispatch) => {
+    dispatch({type:DETAILS_REQUEST});
+    axios.get(`${baseUrl}/api/tutor/`,{
+     headers : {
+         'Authorization':`Bearer ${token}`
+     }
+    }).then((res)=>{
+     console.log(res)
+      dispatch({type:ALLTUTORS_GET_SUCCESS,payload:res.data})
+    }).catch(err=>{
+     console.log(err)
+     dispatch({type:DETAILS_FAILURE})
+    })
+ }

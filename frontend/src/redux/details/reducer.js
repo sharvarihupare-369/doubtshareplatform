@@ -1,11 +1,12 @@
-import { DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST } from "./actionTypes";
+import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST } from "./actionTypes";
 
   
   let initialState = {
     isLoading: false,
     isError: false,
     isAdded:false,
-    student: {}
+    student: {},
+    alltutors : []
   };
   
   export const reducer = (state = initialState, { type, payload }) => {
@@ -44,6 +45,16 @@ import { DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQU
             isError:false,
             isAdded:false,
             student : payload
+        }
+     }
+
+     case ALLTUTORS_GET_SUCCESS : {
+        return {
+            ...state,
+            isLoading : false,
+            isError : false,
+            isAdded: false,
+            alltutors : payload
         }
      }
 
