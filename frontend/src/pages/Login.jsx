@@ -184,7 +184,7 @@ const Login = () => {
 
               <Box color="white" display={"flex"} gap="10px">
                 <p>Not Registered yet ?</p>
-                <Link to="/login">Signup</Link>
+                <Link to="/signup">Signup</Link>
               </Box>
             </Box>
           </form>

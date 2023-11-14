@@ -21,7 +21,7 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { addTutorDetails, getStudentDetail, getTutorDetails, studentDetails } from "../redux/details/action";
+import { addTutorDetails, addstudentDetails, getStudentDetail, getTutorDetails, studentDetails } from "../redux/details/action";
 
 const Profile = () => {
   const username = localStorage.getItem("login-name") || "";
@@ -29,7 +29,7 @@ const Profile = () => {
   const userType = localStorage.getItem("userType") || "";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const { student ,tutor} = useSelector((store) => store.detailsReducer);
+  const { student ,tutor,isTutorAdded,isAdded} = useSelector((store) => store.detailsReducer);
   const [classGrade, setClassGrade] = useState("");
   const [language, setLanguage] = useState("");
   const [name,setName] = useState("")
@@ -57,7 +57,7 @@ const Profile = () => {
       language,
     };
     if(userType === 'Student'){
-        dispatch(studentDetails(studentDetailsObj, token));
+        dispatch(addstudentDetails(studentDetails, token));
         dispatch(getStudentDetail(token));
     }else{
         dispatch(addTutorDetails(tutorDetails, token));
@@ -82,6 +82,15 @@ const Profile = () => {
   useEffect(() => {
     dispatch(getStudentDetail(token));
   }, []);
+
+  useEffect(()=>{
+    if(isAdded){
+     return   dispatch(getStudentDetail(token))
+    }
+    if(isTutorAdded){
+        return   dispatch(getTutorDetails(token))
+    }
+  },[isAdded,isTutorAdded])
 
   
   useEffect(() => {

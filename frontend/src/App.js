@@ -14,6 +14,7 @@ function App() {
        location.pathname === "/" && location.pathname === "/dashboard"  && location.pathname === "/doubtform" ?  <Navbar/> : ""
     } */}
       <Navbar />
+      {/* {location.pathname === "/login" && location.pathname == "/signup" && ""} */}
       <MainRoutes />
     </div>
   );

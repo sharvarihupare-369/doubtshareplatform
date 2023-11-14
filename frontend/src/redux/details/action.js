@@ -2,7 +2,7 @@ import axios from "axios";
 import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST, TUTOR_DETAILS_ADD_SUCCESS } from "./actionTypes"
 import { baseUrl } from "../../url";
 
-export const studentDetails = (detailsObj,token) => (dispatch) => {
+export const addstudentDetails = (detailsObj,token) => (dispatch) => {
    dispatch({type:DETAILS_REQUEST});
    axios.post(`${baseUrl}/api/student/create`,detailsObj,{
     headers : {
