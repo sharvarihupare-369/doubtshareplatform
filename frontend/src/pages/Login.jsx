@@ -16,9 +16,8 @@ import { Link, useNavigate } from "react-router-dom";
 import Loader from "../components/Loader";
 
 const Login = () => {
-
   const dispatch = useDispatch();
-  const { loggedinname,isAuth,token,errmsg ,isLoading} = useSelector(
+  const { loggedinname, isAuth, token, errmsg, isLoading } = useSelector(
     (store) => store.authReducer
   );
   const toast = useToast();
@@ -39,11 +38,10 @@ const Login = () => {
     dispatch(login(logindata));
   };
 
-  useEffect(()=>{
-    
-    if(token){
-      localStorage.setItem("doubt-token",token);
-      localStorage.setItem("login-name",loggedinname)
+  useEffect(() => {
+    if (token) {
+      localStorage.setItem("doubt-token", token);
+      localStorage.setItem("login-name", loggedinname);
       toast({
         title: `${loggedinname} logged in successfully`,
         // description: registermsg,
@@ -51,13 +49,13 @@ const Login = () => {
         duration: 3000,
         isClosable: true,
         position: "top",
-      })
-      setTimeout(()=>{
-        navigate("/")
-      },3000)
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 3000);
     }
 
-    if(errmsg){
+    if (errmsg) {
       toast({
         title: errmsg,
         // description: registermsg,
@@ -66,17 +64,17 @@ const Login = () => {
         isClosable: true,
         position: "top",
       });
-      return
+      return;
     }
+  }, [token, errmsg]);
 
-  },[token,errmsg])
-
-
-  // if(isLoading){
-  //   return <Loader/>
-  // }
-
-
+  if (isLoading) {
+    return (
+      <Box display={"flex"} justifyContent={"center"} mt="100px">
+        <Loader />
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -102,7 +100,7 @@ const Login = () => {
         alignItems={"center"}
         justifyContent={"flex-end"}
       >
-         <Box
+        <Box
           w="90%"
           h="90vh"
           bg="#37CF89"
@@ -112,7 +110,7 @@ const Login = () => {
           borderTopLeftRadius={"20px"}
           borderBottomLeftRadius={"20px"}
         >
-          <Box w="100%" >
+          <Box w="100%">
             <Image
               src={signupquesimg}
               borderRadius={"10px"}

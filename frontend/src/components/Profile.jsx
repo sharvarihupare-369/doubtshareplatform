@@ -24,14 +24,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { getStudentDetail, studentDetails } from "../redux/details/action";
 
 const Profile = () => {
-  const username = localStorage.getItem("login-name");
-  const token = localStorage.getItem("doubt-token");
+  const username = localStorage.getItem("login-name") || "";
+  const token = localStorage.getItem("doubt-token") || "";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
   const { student } = useSelector((store) => store.detailsReducer);
   const [classGrade, setClassGrade] = useState("");
   const [language, setLanguage] = useState("");
-//   console.log(student);
+  //   console.log(student);
 
   const handleAddDetails = (e) => {
     e.preventDefault();

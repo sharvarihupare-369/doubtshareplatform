@@ -1,11 +1,18 @@
-import React from 'react'
+import React from "react";
 
 const Loader = () => {
   return (
-    <div>
-        <span class="loader"></span>
+    <div class="lds-roller">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
-  )
-}
+  );
+};
 
-export default Loader
+export default Loader;

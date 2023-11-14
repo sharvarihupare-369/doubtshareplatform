@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllDoubts } from '../redux/doubts/action'
 
 const ChatInterface = () => {
-  const token = localStorage.getItem("doubt-token");
-  const username = localStorage.getItem("login-name");
+  const token = localStorage.getItem("doubt-token")  || "";
+  const username = localStorage.getItem("login-name") || "";
   const dispatch = useDispatch();
   const {alldoubts} = useSelector((store)=>store.doubtReducer);
   

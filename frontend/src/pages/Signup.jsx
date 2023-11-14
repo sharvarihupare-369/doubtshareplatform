@@ -14,10 +14,11 @@ import { useDispatch, useSelector } from "react-redux";
 import signupquesimg from "../Assets/loginvector.jpg";
 import { signup } from "../redux/authentication/action";
 import { Link, useNavigate } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Signup = () => {
   const dispatch = useDispatch();
-  const { isRegistered, registermsg,errmsg } = useSelector(
+  const { isRegistered, registermsg, errmsg, isLoading } = useSelector(
     (store) => store.authReducer
   );
   const toast = useToast();
@@ -38,7 +39,7 @@ const Signup = () => {
   //   setSignupdata({ ...signupdata, [name]: value});
   // };
 
-  console.log(signupdata)
+  console.log(signupdata);
 
   const handleSignup = (e) => {
     e.preventDefault();
@@ -61,7 +62,7 @@ const Signup = () => {
       return;
     }
 
-    if(errmsg){
+    if (errmsg) {
       toast({
         title: errmsg,
         // description: registermsg,
@@ -71,7 +72,15 @@ const Signup = () => {
         position: "top",
       });
     }
-  }, [isRegistered,errmsg]);
+  }, [isRegistered, errmsg]);
+
+  if (isLoading) {
+    return (
+      <Box display={"flex"} justifyContent={"center"} mt="100px">
+        <Loader />
+      </Box>
+    );
+  }
 
   return (
     <Box
@@ -107,7 +116,7 @@ const Signup = () => {
           borderTopLeftRadius={"20px"}
           borderBottomLeftRadius={"20px"}
         >
-          <Box w="100%" >
+          <Box w="100%">
             <Image
               src={signupquesimg}
               borderRadius={"10px"}
@@ -143,7 +152,9 @@ const Signup = () => {
                   type="text"
                   name="username"
                   // onChange={handleChange}
-                  onChange={(e)=>setSignupdata({...signupdata,username:e.target.value})}
+                  onChange={(e) =>
+                    setSignupdata({ ...signupdata, username: e.target.value })
+                  }
                   value={signupdata.username}
                   placeholder="Enter name"
                   _placeholder={{ opacity: 0.9, color: "gray.900" }}
@@ -158,7 +169,9 @@ const Signup = () => {
                   type="email"
                   name="email"
                   // onChange={handleChange}
-                  onChange={(e)=>setSignupdata({...signupdata,email:e.target.value})}
+                  onChange={(e) =>
+                    setSignupdata({ ...signupdata, email: e.target.value })
+                  }
                   value={signupdata.email}
                   placeholder="Enter email"
                   _placeholder={{ opacity: 0.9, color: "gray.900" }}
@@ -173,7 +186,9 @@ const Signup = () => {
                   type="password"
                   name="password"
                   // onChange={handleChange}
-                  onChange={(e)=>setSignupdata({...signupdata,password:e.target.value})}
+                  onChange={(e) =>
+                    setSignupdata({ ...signupdata, password: e.target.value })
+                  }
                   value={signupdata.password}
                   placeholder="Enter password"
                   _placeholder={{ opacity: 0.9, color: "gray.900" }}
@@ -189,8 +204,9 @@ const Signup = () => {
                   colorScheme="green"
                   color="white"
                   fontWeight={600}
-                 
-                  onChange={()=>setSignupdata({...signupdata,role:"Student"})}
+                  onChange={() =>
+                    setSignupdata({ ...signupdata, role: "Student" })
+                  }
                   // isChecked={signupdata.role === 'Student'}
                 >
                   Student
@@ -201,7 +217,9 @@ const Signup = () => {
                   fontWeight={600}
                   colorScheme="green"
                   // value={signupdata.role}
-                  onChange={()=>setSignupdata({...signupdata,role:"Tutor"})}
+                  onChange={() =>
+                    setSignupdata({ ...signupdata, role: "Tutor" })
+                  }
                   // isChecked={signupdata.role === 'Tutor'}
                 >
                   Tutor
@@ -213,7 +231,6 @@ const Signup = () => {
                   type="submit"
                   w="100%"
                   variant="none"
-                  
                   bg="#364FC2"
                   color="white"
                 >

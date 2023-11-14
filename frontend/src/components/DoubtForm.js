@@ -18,36 +18,35 @@ const DoubtForm = () => {
   const token = localStorage.getItem("doubt-token");
   const dispatch = useDispatch();
   const { student } = useSelector((store) => store.detailsReducer);
-  const { alldoubts,isAdded } = useSelector((store) => store.doubtReducer);
+  const { alldoubts, isAdded } = useSelector((store) => store.doubtReducer);
   // console.log(student)
   // console.log(alldoubts)
- 
+
   useEffect(() => {
     dispatch(getStudentDetail(token));
   }, []);
 
-  const [doubt,setDoubt] = useState({
-    classGrade : student.classGrade ? student.classGrade : "",
-    language : student.language ? student.language : "",
-    subject:"",
-    question : ""
-  })
+  const [doubt, setDoubt] = useState({
+    classGrade: student.classGrade ? student.classGrade : "",
+    language: student.language ? student.language : "",
+    subject: "",
+    question: "",
+  });
 
   const handleChange = (e) => {
-    const {name,value} = e.target;
-    setDoubt({...doubt,[name] : value});
-  }
+    const { name, value } = e.target;
+    setDoubt({ ...doubt, [name]: value });
+  };
 
   const handleAskDoubt = (e) => {
     e.preventDefault();
-    dispatch(addDoubt(doubt,token))
-    dispatch(getAllDoubts(token))
-   
-  }
+    dispatch(addDoubt(doubt, token));
+    dispatch(getAllDoubts(token));
+  };
 
-  useEffect(()=>{
-    dispatch(getAllDoubts(token))
-  },[])
+  useEffect(() => {
+    dispatch(getAllDoubts(token));
+  }, []);
 
   return (
     <Box display={"flex"} m="15px">
@@ -58,19 +57,43 @@ const DoubtForm = () => {
         <form onSubmit={handleAskDoubt}>
           <Box mt="10px">
             <FormLabel>Class Grade</FormLabel>
-            <Input type="text" focusBorderColor="rgb(189, 189, 189)" value={doubt.classGrade} name="classGrade" onChange={handleChange} />
+            <Input
+              type="text"
+              focusBorderColor="rgb(189, 189, 189)"
+              value={doubt.classGrade}
+              name="classGrade"
+              onChange={handleChange}
+            />
           </Box>
           <Box mt="10px">
             <FormLabel>Language</FormLabel>
-            <Input type="text" focusBorderColor="rgb(189, 189, 189)" value={doubt.language} name="language" onChange={handleChange}  />
+            <Input
+              type="text"
+              focusBorderColor="rgb(189, 189, 189)"
+              value={doubt.language}
+              name="language"
+              onChange={handleChange}
+            />
           </Box>
           <Box mt="10px">
             <FormLabel>Doubt Subject</FormLabel>
-            <Input type="text" focusBorderColor="rgb(189, 189, 189)" value={doubt.subject} name="subject" onChange={handleChange}  />
+            <Input
+              type="text"
+              focusBorderColor="rgb(189, 189, 189)"
+              value={doubt.subject}
+              name="subject"
+              onChange={handleChange}
+            />
           </Box>
           <Box mt="10px">
             <FormLabel>Question</FormLabel>
-            <Input type="text" focusBorderColor="rgb(189, 189, 189)" value={doubt.question} name="question" onChange={handleChange}  />
+            <Input
+              type="text"
+              focusBorderColor="rgb(189, 189, 189)"
+              value={doubt.question}
+              name="question"
+              onChange={handleChange}
+            />
           </Box>
 
           <Box mt="10px">

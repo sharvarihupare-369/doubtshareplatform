@@ -1,18 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-import MainRoutes from './pages/MainRoutes';
-import Navbar from './components/Navbar';
-import { useLocation } from 'react-router-dom';
+import logo from "./logo.svg";
+import "./App.css";
+import MainRoutes from "./pages/MainRoutes";
+import Navbar from "./components/Navbar";
+import { useLocation } from "react-router-dom";
+import Loader from "./components/Loader";
+import { Box } from "@chakra-ui/react";
 
 function App() {
-  const location = useLocation()
+  const location = useLocation();
   return (
     <div className="App">
-    {/* {
+      {/* {
        location.pathname === "/" && location.pathname === "/dashboard"  && location.pathname === "/doubtform" ?  <Navbar/> : ""
     } */}
-      <Navbar/>  
-      <MainRoutes/>
+      <Navbar />
+      <MainRoutes />
     </div>
   );
 }

@@ -16,40 +16,47 @@ import { useDispatch, useSelector } from "react-redux";
 import { getalltutors } from "../redux/details/action";
 import { FaTruckMonster } from "react-icons/fa";
 import { getAllDoubts } from "../redux/doubts/action";
+import Loader from "../components/Loader";
 
 const Dashboard = () => {
-  const username = localStorage.getItem("login-name");
-  const token = localStorage.getItem("doubt-token");
+  const username = localStorage.getItem("login-name") || "";
+  const token = localStorage.getItem("doubt-token") || "";
   const dispatch = useDispatch();
-  const { alltutors } = useSelector((store) => store.detailsReducer);
-  const {alldoubts} = useSelector((store)=>store.doubtReducer);
+  const { alltutors, isLoading } = useSelector((store) => store.detailsReducer);
+  const { alldoubts } = useSelector((store) => store.doubtReducer);
   // console.log(alltutors)
 
   useEffect(() => {
     dispatch(getalltutors(token));
   }, []);
 
-  
-
-  useEffect(()=>{
-    dispatch(getAllDoubts(token))
-  },[])
+  useEffect(() => {
+    dispatch(getAllDoubts(token));
+  }, []);
 
   // console.log(alldoubts[0].question)
 
+  if (isLoading) {
+    return (
+      <Box display={"flex"} justifyContent={"center"} mt="100px">
+        <Loader />
+      </Box>
+    );
+  }
 
   return (
-    <Box >
-      <Heading  m="20px" as="h3" size="md">{`Welcome ${username}`}</Heading>
+    <Box>
+      <Heading m="20px" as="h3" size="md">{`Welcome ${username}`}</Heading>
 
-      <Box m="20px" color="rgb(255, 179, 0)" >
-         <Heading as="h2" size="md" >{alldoubts[0]?.question}</Heading>
+      <Box m="20px" color="rgb(255, 179, 0)">
+        <Heading as="h2" size="md">
+          {alldoubts[0]?.question}
+        </Heading>
       </Box>
 
       <Box mt="60px">
         <TableContainer>
           <Table variant="striped" colorScheme="teal">
-          
             <Thead>
               <Tr>
                 <Th>Name</Th>
