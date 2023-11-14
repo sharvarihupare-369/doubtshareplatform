@@ -1,9 +1,20 @@
 import { Box, Button, HStack } from "@chakra-ui/react";
 import React from "react";
 import { FaUserCircle } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import { logout } from "../redux/authentication/action";
 
 const Navbar = () => {
+  const token = localStorage.getItem('doubt-token') || '';
+  const dispatch = useDispatch()
+  const handleLogout = () => {
+    dispatch(logout())
+    localStorage.removeItem('doubt-token')
+    localStorage.removeItem('login-name')
+    localStorage.removeItem('userType')
+    window.location.reload()
+  }
   return (
     <Box
       display={"flex"}
@@ -28,11 +39,14 @@ const Navbar = () => {
           <Link to="/doubtform">Ask a doubt?</Link>
         </Button>
       </Box>
-      <Box color="black" m="0px 20px">
+      <Box color="black" m="0px 20px" display={"flex"} alignItems={"center"} gap="10px">
         <HStack fontWeight={600}>
           <FaUserCircle style={{ fontSize: "20px" }} />
           <Link to="/profile">Profile</Link>
         </HStack>
+         { 
+           token ?  <Button onClick={handleLogout}>Logout</Button> : ""
+         }
       </Box>
     </Box>
   );

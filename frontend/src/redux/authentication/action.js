@@ -1,6 +1,7 @@
 import axios from "axios";
 import {
   AUTH_FAILURE,
+  AUTH_GET_ALL_USERS,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT_SUCCESS,
   AUTH_REGISTER_SUCCESS,
@@ -27,7 +28,7 @@ export const login = (payload) => (dispatch) => {
     axios
       .post(`${baseUrl}/api/auth/login`, payload)
       .then((res) => {
-        // console.log(res)
+        console.log(res)
         dispatch({ type: AUTH_LOGIN_SUCCESS, payload: res.data });
       })
       .catch((err) => {
@@ -36,17 +37,24 @@ export const login = (payload) => (dispatch) => {
       });
 };
 
-export const logout = (token) => (dispatch) => {
+export const logout = () => (dispatch) => {
     dispatch({ type: AUTH_REQUEST });
-    axios.get(`${baseUrl}/api/auth/logout`,{
-        headers : {
-            'Authorization' : `Bearer ${token}`
-        }
-    }).then((res)=>{
-        console.log(res)
+    axios.get(`${baseUrl}/api/auth/logout`).then((res)=>{
+        // console.log(res)
         dispatch({type:AUTH_LOGOUT_SUCCESS})
     }).catch((err)=>{
-        console.log(err)
+        // console.log(err)
         dispatch({type:AUTH_FAILURE})
     })
 };
+
+export const getAllUsers = () => (dispatch) => {
+  dispatch({ type: AUTH_REQUEST });
+  axios.get(`${baseUrl}/api/auth/users`).then((res)=>{
+      // console.log(res)
+      dispatch({type:AUTH_GET_ALL_USERS,payload:res.data})
+  }).catch((err)=>{
+      // console.log(err)
+      dispatch({type:AUTH_FAILURE})
+  })
+}

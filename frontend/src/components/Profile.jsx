@@ -21,34 +21,71 @@ import {
 import React, { useEffect, useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { getStudentDetail, studentDetails } from "../redux/details/action";
+import { addTutorDetails, getStudentDetail, getTutorDetails, studentDetails } from "../redux/details/action";
 
 const Profile = () => {
   const username = localStorage.getItem("login-name") || "";
   const token = localStorage.getItem("doubt-token") || "";
+  const userType = localStorage.getItem("userType") || "";
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const { student } = useSelector((store) => store.detailsReducer);
+  const { student ,tutor} = useSelector((store) => store.detailsReducer);
   const [classGrade, setClassGrade] = useState("");
   const [language, setLanguage] = useState("");
+  const [name,setName] = useState("")
   //   console.log(student);
+
+
+  const [studentDetails,setStudentDetails] = useState({
+    classGrade : "",
+    language : "", 
+    name : ""
+  })
+
+  const [tutorDetails,setTutorDetails] = useState({
+     name : '',
+     classGrade :'',
+     language : '',
+     subjectExpertise : ''    
+  })
 
   const handleAddDetails = (e) => {
     e.preventDefault();
     const studentDetailsObj = {
+      name,
       classGrade,
       language,
     };
-    dispatch(studentDetails(studentDetailsObj, token));
-    setClassGrade("");
-    setLanguage("");
+    if(userType === 'Student'){
+        dispatch(studentDetails(studentDetailsObj, token));
+        dispatch(getStudentDetail(token));
+    }else{
+        dispatch(addTutorDetails(tutorDetails, token));
+        dispatch(getTutorDetails(token));
+    }
+ 
     setTimeout(() => {
       onClose();
     }, 1000);
   };
 
+   const handleChange = (e) => {
+    const {value,name} = e.target;
+    setStudentDetails({...studentDetails,[name] : value});
+   }
+
+   const handleTutorsChange = (e) => {
+    const {value,name} = e.target;
+    setTutorDetails({...tutorDetails,[name] : value});
+   }
+
   useEffect(() => {
     dispatch(getStudentDetail(token));
+  }, []);
+
+  
+  useEffect(() => {
+    dispatch(getTutorDetails(token));
   }, []);
 
   return (
@@ -93,21 +130,72 @@ const Profile = () => {
                   <ModalHeader>Add your details</ModalHeader>
                   <ModalCloseButton />
                   <ModalBody pb={6}>
-                    <FormControl>
+
+                    {
+                        userType === 'Student' ? <Box>
+                        <FormControl>
                       <Input
-                        value={classGrade}
-                        onChange={(e) => setClassGrade(e.target.value)}
+                        name = "name"
+                        value={studentDetails.name}
+                        onChange={handleChange}
+                        placeholder="Name"
+                      />
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                      <Input
+                      name = "classGrade"
+                        value={studentDetails.classGrade}
+                        onChange={handleChange}
                         placeholder="class grade"
                       />
                     </FormControl>
 
                     <FormControl mt={4}>
                       <Input
-                        value={language}
-                        onChange={(e) => setLanguage(e.target.value)}
+                        name = "language"
+                        value={studentDetails.language}
+                        onChange={handleChange}
                         placeholder="language"
                       />
                     </FormControl>
+                        </Box> :  <Box>
+                        <FormControl>
+                      <Input
+                      name = "name"
+                        value={tutorDetails.name}
+                        onChange={handleTutorsChange}
+                        placeholder="Name"
+                      />
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                      <Input
+                      name = "classGrade"
+                        value={tutorDetails.classGrade}
+                        onChange={handleTutorsChange}
+                        placeholder="class grade"
+                      />
+                    </FormControl>
+
+                    <FormControl mt={4}>
+                      <Input
+                      name = "language"
+                        value={tutorDetails.language}
+                        onChange={handleTutorsChange}
+                        placeholder="language"
+                      />
+                    </FormControl>
+                    <FormControl mt={4}>
+                      <Input
+                      name = "subjectExpertise"
+                        value={tutorDetails.subjectExpertise}
+                        onChange={handleTutorsChange}
+                        placeholder="subjectExpertise"
+                      />
+                    </FormControl>
+                        </Box>
+                    }
                   </ModalBody>
 
                   <ModalFooter>
@@ -138,6 +226,45 @@ const Profile = () => {
               <Heading size="md">Language: </Heading>
               <Heading size="md" color="teal">
                 {student.language}
+              </Heading>
+            </HStack>
+          </Box>
+        ) : (
+          ""
+        )}
+
+        {tutor.classGrade ? (
+          <Box>
+            <HStack>
+              <Heading size="md">ClassGrade: </Heading>
+              <Heading size="md" color="teal">
+                {tutor.classGrade}
+              </Heading>
+            </HStack>
+          </Box>
+        ) : (
+          ""
+        )}
+
+        {tutor.language ? (
+          <Box>
+            <HStack>
+              <Heading size="md">Language: </Heading>
+              <Heading size="md" color="teal">
+                {tutor.language}
+              </Heading>
+            </HStack>
+          </Box>
+        ) : (
+          ""
+        )}
+
+        {tutor.subjectExpertise ? (
+          <Box>
+            <HStack>
+              <Heading size="md">subjectExpertise: </Heading>
+              <Heading size="md" color="teal">
+                {tutor.subjectExpertise}
               </Heading>
             </HStack>
           </Box>

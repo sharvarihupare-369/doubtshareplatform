@@ -10,13 +10,17 @@ import {
   Td,
   TableCaption,
   TableContainer,
+  HStack,
+  Button,
+  Text
 } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getalltutors } from "../redux/details/action";
 import { FaTruckMonster } from "react-icons/fa";
 import { getAllDoubts } from "../redux/doubts/action";
 import Loader from "../components/Loader";
+import { getAllUsers } from "../redux/authentication/action";
 
 const Dashboard = () => {
   const username = localStorage.getItem("login-name") || "";
@@ -24,8 +28,10 @@ const Dashboard = () => {
   const dispatch = useDispatch();
   const { alltutors, isLoading } = useSelector((store) => store.detailsReducer);
   const { alldoubts } = useSelector((store) => store.doubtReducer);
+  const { allusers } = useSelector((store) => store.authReducer);
+  // const [name,setName] = useState([])
   // console.log(alltutors)
-
+  // console.log(allusers)
   useEffect(() => {
     dispatch(getalltutors(token));
   }, []);
@@ -33,6 +39,18 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(getAllDoubts(token));
   }, []);
+
+  // useEffect(()=>{
+  //   dispatch(getAllUsers());
+    
+  // },[])
+
+  // useEffect(()=>{
+  //   let tutors =  allusers.filter((el) => el.role === 'Tutor')
+  //   setName(tutors);
+  // },[allusers])
+
+  // console.log(name)
 
   // console.log(alldoubts[0].question)
 
@@ -49,12 +67,16 @@ const Dashboard = () => {
       <Heading m="20px" as="h3" size="md">{`Welcome ${username}`}</Heading>
 
       <Box m="20px" color="rgb(255, 179, 0)">
-        <Heading as="h2" size="md">
+       <HStack >
+       <Heading as="h2" size="md">
           {alldoubts[0]?.question}
         </Heading>
+        <Button _hover={"none"} variant={"solid"} bg="green" color="white">Accept</Button>
+       </HStack>
       </Box>
 
-      <Box mt="60px">
+      <Box mt="60px" w="90%" m="auto">
+        <Text>All Tutors</Text>
         <TableContainer>
           <Table variant="striped" colorScheme="teal">
             <Thead>
@@ -68,7 +90,7 @@ const Dashboard = () => {
             <Tbody>
               {alltutors?.map((tutor) => {
                 return (
-                  <Tr>
+                  <Tr key={tutor._id}>
                     <Td>Name</Td>
                     <Td>{tutor.language}</Td>
                     <Td>{tutor.subjectExpertise}</Td>

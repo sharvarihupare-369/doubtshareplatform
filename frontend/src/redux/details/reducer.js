@@ -1,4 +1,4 @@
-import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST } from "./actionTypes";
+import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST, TUTOR_DETAILS_ADD_SUCCESS, TUTOR_DETAILS_GET_SUCCESS } from "./actionTypes";
 
   
   let initialState = {
@@ -6,7 +6,9 @@ import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GE
     isError: false,
     isAdded:false,
     student: {},
-    alltutors : []
+    alltutors : [],
+    tutor : {},
+    isTutorAdded : false
   };
   
   export const reducer = (state = initialState, { type, payload }) => {
@@ -38,6 +40,16 @@ import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GE
         }
      }
 
+     case TUTOR_DETAILS_ADD_SUCCESS : {
+        return {
+            ...state,
+            isLoading : false,
+            isError : false,
+            isAdded : false,
+            isTutorAdded : true
+        }
+     }
+
      case DETAILS_GET_SUCCESS : {
         return {
             ...state,
@@ -45,6 +57,16 @@ import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GE
             isError:false,
             isAdded:false,
             student : payload
+        }
+     }
+
+     case TUTOR_DETAILS_GET_SUCCESS : {
+        return {
+            ...state,
+            isLoading:false,
+            isError:false,
+            isAdded:false,
+            tutor : payload
         }
      }
 

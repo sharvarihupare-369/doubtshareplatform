@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST } from "./actionTypes"
+import { ALLTUTORS_GET_SUCCESS, DETAILS_ADD_SUCCESS, DETAILS_FAILURE, DETAILS_GET_SUCCESS, DETAILS_REQUEST, TUTOR_DETAILS_ADD_SUCCESS } from "./actionTypes"
 import { baseUrl } from "../../url";
 
 export const studentDetails = (detailsObj,token) => (dispatch) => {
@@ -40,10 +40,41 @@ export const getStudentDetail = (token) => (dispatch) => {
          'Authorization':`Bearer ${token}`
      }
     }).then((res)=>{
-     console.log(res)
+    //  console.log(res)
       dispatch({type:ALLTUTORS_GET_SUCCESS,payload:res.data})
     }).catch(err=>{
-     console.log(err)
+    //  console.log(err)
+     dispatch({type:DETAILS_FAILURE})
+    })
+ }
+
+ export const addTutorDetails = (payload,token) => (dispatch) => {
+    dispatch({type:DETAILS_REQUEST});
+    axios.post(`${baseUrl}/api/tutor/addData`,payload,{
+     headers : {
+         'Authorization':`Bearer ${token}`
+     }
+    }).then((res)=>{
+     // console.log(res)
+      dispatch({type:TUTOR_DETAILS_ADD_SUCCESS})
+    }).catch(err=>{
+     // console.log(err)
+     dispatch({type:DETAILS_FAILURE})
+    })
+ }
+
+
+ export const getTutorDetails = (token) => (dispatch) => {
+    dispatch({type:DETAILS_REQUEST});
+    axios.get(`${baseUrl}/api/tutor/gettutor`,{
+     headers : {
+         'Authorization':`Bearer ${token}`
+     }
+    }).then((res)=>{
+    //  console.log(res)
+      dispatch({type:DETAILS_GET_SUCCESS,payload:res.data})
+    }).catch(err=>{
+    //  console.log(err)
      dispatch({type:DETAILS_FAILURE})
     })
  }

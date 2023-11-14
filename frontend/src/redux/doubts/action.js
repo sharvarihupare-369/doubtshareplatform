@@ -1,5 +1,5 @@
 import axios from "axios"
-import { DOUBT_FAILURE, DOUBT_GET_SUCCESS, DOUBT_REQUEST } from "./actionTypes"
+import { DOUBT_ADD_SUCCESS, DOUBT_FAILURE, DOUBT_GET_SUCCESS, DOUBT_REQUEST } from "./actionTypes"
 import { baseUrl } from "../../url";
 
 
@@ -10,11 +10,11 @@ export const addDoubt = (doubt,token) =>  (dispatch) => {
             'Authorization':`Bearer ${token}`
         }
     }).then((res)=>{
-        console.log(res)
-        //  dispatch({type:DETAILS_ADD_SUCCESS})
+        // console.log(res)
+         dispatch({type:DOUBT_ADD_SUCCESS})
     }).catch(err=>{
-        console.log(err)
-        // dispatch({type:DETAILS_FAILURE})
+        // console.log(err)
+        dispatch({type:DOUBT_FAILURE})
     })
 }
 
@@ -26,10 +26,10 @@ export const getAllDoubts = (token) =>  (dispatch) => {
             'Authorization':`Bearer ${token}`
         }
     }).then((res)=>{
-         console.log(res)
+        //  console.log(res)
          dispatch({type:DOUBT_GET_SUCCESS,payload:res.data})
     }).catch(err=>{
-        console.log(err)
+        // console.log(err)
         dispatch({type:DOUBT_FAILURE})
     })
 }

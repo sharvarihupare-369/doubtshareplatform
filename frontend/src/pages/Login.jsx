@@ -17,7 +17,7 @@ import Loader from "../components/Loader";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const { loggedinname, isAuth, token, errmsg, isLoading } = useSelector(
+  const { loggedinname, isAuth, token, errmsg, isLoading ,usertype} = useSelector(
     (store) => store.authReducer
   );
   const toast = useToast();
@@ -42,6 +42,7 @@ const Login = () => {
     if (token) {
       localStorage.setItem("doubt-token", token);
       localStorage.setItem("login-name", loggedinname);
+      localStorage.setItem('userType', usertype)
       toast({
         title: `${loggedinname} logged in successfully`,
         // description: registermsg,

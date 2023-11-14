@@ -41,7 +41,13 @@ const DoubtForm = () => {
   const handleAskDoubt = (e) => {
     e.preventDefault();
     dispatch(addDoubt(doubt, token));
-    dispatch(getAllDoubts(token));
+    setDoubt({
+      classGrade: student.classGrade ? student.classGrade : '' ,
+      language: student.language ? student.language : ' ' ,
+      subject: "",
+      question: "",
+    })
+    // dispatch(getAllDoubts(token));
   };
 
   useEffect(() => {

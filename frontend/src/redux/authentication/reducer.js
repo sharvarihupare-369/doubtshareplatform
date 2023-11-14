@@ -1,5 +1,6 @@
 import {
   AUTH_FAILURE,
+  AUTH_GET_ALL_USERS,
   AUTH_LOGIN_SUCCESS,
   AUTH_LOGOUT_SUCCESS,
   AUTH_REGISTER_SUCCESS,
@@ -15,7 +16,9 @@ let initialState = {
   isLogout: false,
   registermsg: "",
   loggedinname : "",
-  errmsg : ""
+  errmsg : "",
+  allusers : [],
+  usertype : ""
 };
 
 export const reducer = (state = initialState, { type, payload }) => {
@@ -59,6 +62,7 @@ export const reducer = (state = initialState, { type, payload }) => {
         token: payload.token,
         loggedinname : payload.name,
         isAuth: true,
+        usertype : payload.type
       };
     }
 
@@ -69,6 +73,14 @@ export const reducer = (state = initialState, { type, payload }) => {
         isError: false,
         isLogout: true,
       };
+    }
+
+    case AUTH_GET_ALL_USERS : {
+      return {
+        ...state,
+        isLoading : false,
+        allusers : payload
+      }
     }
 
     default: {
