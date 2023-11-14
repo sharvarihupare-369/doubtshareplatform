@@ -32,18 +32,18 @@ Runs every second to count the real-time available tutors.
 ### Technologies Used
 The project is built using the MERN stack:
 
-MongoDB: Database
-Express.js: Backend Framework
-React.js: Frontend Library
-Node.js: Runtime Environment
+- MongoDB: Database
+- Express.js: Backend Framework
+- React.js: Frontend Library
+- Node.js: Runtime Environment
 
 ## Getting Started
 To get started with the project, follow these steps:
 git clone https://github.com/sharvarihupare-369/doubtshareplatform
 
 Navigate to the project directory:
-cd frontend
-cd backend
+1. cd frontend
+2. cd backend
 
 Install dependencies:   
 npm install
@@ -51,61 +51,61 @@ npm install
 Set up the MongoDB connection and other environment variables.
 
 Run the application:
-For frontend : npm start
-For backend : npm run server
+- For frontend : npm start
+- For backend : npm run server
 
 
 #### Backend Routes
 ##### User Routes
 
 1. Register
-Endpoint: /register
-Method: POST
-Description: Allows users to register on the platform.
+- Endpoint: /register
+- Method: POST
+- Description: Allows users to register on the platform.
 
 2. Login
-Endpoint: /login
-Method: POST
-Description: Allows users to log in and receive an authentication token.
+- Endpoint: /login
+- Method: POST
+- Description: Allows users to log in and receive an authentication token.
 
 3. Logout
-Endpoint: /logout
-Method: GET
-Description: Logs the user out by adding the authentication token to the blacklist.
+- Endpoint: /logout
+- Method: GET
+- Description: Logs the user out by adding the authentication token to the blacklist.
 
 ##### Doubt Routes
 
 1. Get Doubt History
-Endpoint: /doubt/history
-Method: GET
-Description: Retrieves the doubt history of the currently logged-in student.
+- Endpoint: /doubt/history
+- Method: GET
+- Description: Retrieves the doubt history of the currently logged-in student.
 
 2. Add Doubt
-Endpoint: /doubt/addDoubt
-Method: POST
-Description: Allows students to add a doubt.
+- Endpoint: /doubt/addDoubt
+- Method: POST
+- Description: Allows students to add a doubt.
 
 ##### Tutor Routes
 
 1. Get Tutor Profile
-Endpoint: /tutor/gettutor
-Method: GET
-Description: Retrieves the profile of the currently logged-in tutor.
+- Endpoint: /tutor/gettutor
+- Method: GET
+- Description: Retrieves the profile of the currently logged-in tutor.
 
 2. Add Tutor Data
-Endpoint: /tutor/addData
-Method: POST
-Description: Allows tutors to add their profile information.
+- Endpoint: /tutor/addData
+- Method: POST
+- Description: Allows tutors to add their profile information.
 
 3. Update Tutor Data
-Endpoint: /tutor/updateData
-Method: PATCH
-Description: Allows tutors to update their profile information.
+- Endpoint: /tutor/updateData
+- Method: PATCH
+- Description: Allows tutors to update their profile information.
 
 4. Update Tutor Ping
-Endpoint: /tutor/update-ping
-Method: POST
-Description: Updates the last ping time for a tutor.
+- Endpoint: /tutor/update-ping
+- Method: POST
+- Description: Updates the last ping time for a tutor.
 
 ## CRON Jobs
 The platform implements CRON jobs for scheduled tasks. Details and functionalities are not provided in the code snippet. Ensure proper configuration and handling of scheduled tasks.
