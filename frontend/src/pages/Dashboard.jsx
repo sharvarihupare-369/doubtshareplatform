@@ -91,7 +91,7 @@ const Dashboard = () => {
               {alltutors?.map((tutor) => {
                 return (
                   <Tr key={tutor._id}>
-                    <Td>Name</Td>
+                    <Td>{tutor.name ? tutor.name : "Name"}</Td>
                     <Td>{tutor.language}</Td>
                     <Td>{tutor.subjectExpertise}</Td>
                     <Td>{tutor.classGrade}</Td>
